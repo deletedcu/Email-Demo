@@ -4,6 +4,8 @@ import 'antd/dist/antd.css';
 import './EmailForm.css';
 
 const { TextArea } = Input
+// const server_url = 'http://localhost:3001/';
+const server_url = 'https://emailklopot.herokuapp.com:3001/';
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -21,7 +23,7 @@ class MainForm extends Component {
       if (err != null) {
         console.log('Received values of form: ', err);
       } else {
-        fetch("http://localhost:3001/send/", {
+        fetch(server_url + "send/", {
           method: "POST",
           headers: {
             'Content-Type': "application/json"
