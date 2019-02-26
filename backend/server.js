@@ -2,7 +2,9 @@ const sendgrid = require("@sendgrid/mail");
 const express = require('express');
 const bodyParser = require('body-parser');
 var app = express();
-sendgrid.setApiKey('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');
+require('dotenv').config();
+
+sendgrid.setApiKey(process.env.API_KEY);
 
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
