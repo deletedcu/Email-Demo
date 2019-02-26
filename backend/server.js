@@ -27,8 +27,7 @@ app.post('/send', async function(req, res){
     subject: emailSubject,
     html: body
   };
-  var result = await sendgrid.send(msg);
-  console.log(result);
+  await sendgrid.send(msg);
   res.contentType('application/json');
   res.send({ success: true });
 })

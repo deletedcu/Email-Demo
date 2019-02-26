@@ -20,8 +20,6 @@ class MainForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      console.log(values);
-      console.log(err == null);
       if (err != null) {
         console.log('Received values of form: ', err);
       } else {
@@ -32,10 +30,19 @@ class MainForm extends Component {
           },
           body: JSON.stringify(values)
         }).then(res => {
-          console.log(res);
+          if (res.status === 200) {
+            alert('Email was sent successfully.');
+          } else {
+            alert('Email sent was failure.')
+          }
         })
+        this._resetForm();
       }
     })
+  }
+
+  _resetForm = () => {
+    this.props.form.resetFields();
   }
 
   render() {
