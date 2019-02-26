@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Form, Input } from 'antd';
-import MaskedInput from 'react-text-mask';
-import emailMask from 'text-mask-addons/dist/emailMask';
 import 'antd/dist/antd.css';
 import './EmailForm.css';
 

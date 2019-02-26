@@ -6,13 +6,9 @@ In the project directory, install the packages
 
 ### `npm i`
 
-In the project directory, run the backend:
-
-### `cd backend && node server.js`
-
 Run the project
 
-### `npm start`
+### `npm run start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
