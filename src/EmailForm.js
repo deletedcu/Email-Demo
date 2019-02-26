@@ -5,7 +5,7 @@ import './EmailForm.css';
 
 const { TextArea } = Input
 // const server_url = 'http://localhost:3001/';
-const server_url = 'https://emailklopot.herokuapp.com:3001/';
+const server_url = 'https://email-klopot.herokuapp.com:3001/';
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
