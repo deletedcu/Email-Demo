@@ -4,8 +4,7 @@ import 'antd/dist/antd.css';
 import './EmailForm.css';
 
 const { TextArea } = Input
-// const server_url = 'http://localhost:3001/';
-const server_url = 'https://email-klopot-server.herokuapp.com:3001/';
+const server_url = 'https://email-klopot-server.herokuapp.com/';
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
