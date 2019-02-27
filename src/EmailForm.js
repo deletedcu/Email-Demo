@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import 'antd/dist/antd.css';
 import './EmailForm.css';
 
 const { TextArea } = Input
 const server_url = 'https://email-klopot-server.herokuapp.com/';
+// const server_url = 'http://localhost:3001/'
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -22,20 +23,26 @@ class MainForm extends Component {
       if (err != null) {
         console.log('Received values of form: ', err);
       } else {
-        fetch(server_url + "send/", {
-          method: "POST",
+        const hide = message.loading('Mail is sending...')
+        fetch(server_url + 'send/', {
+          method: 'POST',
           headers: {
-            'Content-Type': "application/json"
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(values)
         }).then(res => {
+          setTimeout(hide, 0)
           if (res.status === 200) {
-            alert('Email was sent successfully.');
+            message.success('Email was sent successfully.');
+            this._resetForm();
           } else {
-            alert('Email sent was failure.')
+            message.error('Email sent was failure.')
           }
+        }).catch(err => {
+          setTimeout(hide, 0)
+          console.error(err)
+          message.error(err.toString())
         })
-        this._resetForm();
       }
     })
   }
@@ -53,7 +60,7 @@ class MainForm extends Component {
     const bodyError = isFieldTouched('emailBody') && getFieldError('emailBody');
 
     return (
-      <Form onSubmit={this.handleSubmit} className="email-form">
+      <Form onSubmit={this.handleSubmit} className='email-form'>
         <Form.Item
           validateStatus={recipientNameError ? 'error' : ''}
           help={recipientNameError || ''}
@@ -61,7 +68,7 @@ class MainForm extends Component {
           {getFieldDecorator('recipientName', {
             rules: [{ required: true, message: 'Please input recipient name!'}]
           })(
-            <Input placeholder="Recipient Name"/>
+            <Input placeholder='Recipient Name'/>
           )}
         </Form.Item>
         <Form.Item
@@ -71,7 +78,7 @@ class MainForm extends Component {
           {getFieldDecorator('email', {
             rules: [{ required: true, type: 'email', message: 'Please input recipient email!'}]
           })(
-            <Input placeholder="Email"/>
+            <Input placeholder='Email'/>
           )}
         </Form.Item>
         <Form.Item
@@ -81,7 +88,7 @@ class MainForm extends Component {
           {getFieldDecorator('emailSubject', {
             rules: [{ require: true, message: 'Please input email subject!'}]
           })(
-            <Input placeholder="Subject"/>
+            <Input placeholder='Subject'/>
           )}
         </Form.Item>
         <Form.Item
@@ -91,11 +98,11 @@ class MainForm extends Component {
           {getFieldDecorator('emailBody', {
             rules: [{ required: true, message: 'Please input the email body!'}]
           })(
-            <TextArea placeholder="Type your messages..." autosize={{minRows: 6, maxRows: 10}}/>
+            <TextArea placeholder='Type your messages...' autosize={{minRows: 6, maxRows: 10}}/>
           )}
         </Form.Item>
         <Form.Item>
-          <Button className="button" type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>Send</Button>
+          <Button className='button' type='primary' htmlType='submit' disabled={hasErrors(getFieldsError())}>Send</Button>
         </Form.Item>
       </Form>
     )
